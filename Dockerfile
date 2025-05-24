@@ -7,7 +7,6 @@ WORKDIR /app
 # Gradleラッパーとビルドファイルをコピー
 COPY gradle/ gradle/
 COPY gradlew build.gradle settings.gradle ./
-COPY gradle.properties ./
 
 # ソースコードをコピー
 COPY src/ src/
