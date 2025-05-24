@@ -7,7 +7,7 @@ OpenAPI Generator を使用した Spring Boot サンプルプロジェクトで�
 ## 📋 機能
 
 - **OpenAPI 3.0** 仕様に基づくAPI定義
-- **Spring Boot 3.x** + Java 17
+- **Spring Boot 3.x** + **Java 24** (最新!)
 - **自動コード生成** (OpenAPI Generator)
 - **JUnit 5** による包括的なテスト
 - **GitHub Actions** による自動テスト
@@ -16,7 +16,7 @@ OpenAPI Generator を使用した Spring Boot サンプルプロジェクトで�
 ## 🚀 使用方法
 
 ### 前提条件
-- Java 17以上
+- **Java 24以上**
 - Git
 
 ### セットアップ
@@ -83,14 +83,14 @@ open build/reports/jacoco/test/html/index.html
 
 GitHub Actions により以下が自動実行されます：
 
-- **プッシュ時**: 全テスト実行
+- **プッシュ時**: 全テスト実行 (Java 24)
 - **プルリクエスト時**: テスト実行 + レポート
 - **テストカバレッジ**: Jacoco レポート生成
 
 ## 🛠️ 技術スタック
 
 - **Framework**: Spring Boot 3.5.0
-- **Language**: Java 17
+- **Language**: **Java 24** 🔥
 - **Build Tool**: Gradle 8.14.1
 - **Testing**: JUnit 5, Mockito
 - **Documentation**: OpenAPI 3.0, Swagger UI
@@ -98,4 +98,11 @@ GitHub Actions により以下が自動実行されます：
 
 ## 📊 テスト状況
 
-現在のテストカバレッジと結果は[GitHub Actions](https://github.com/shimazakis0523/springbootdemo/actions)で確認できます。 
+現在のテストカバレッジと結果は[GitHub Actions](https://github.com/shimazakis0523/springbootdemo/actions)で確認できます。
+
+## 🎯 特徴
+
+- **最新のJava 24使用**: 新機能をフル活用
+- **Contract-First開発**: OpenAPI定義からコード生成
+- **完全自動化**: GitHub ActionsによるCI/CD
+- **高品質コード**: 包括的テストとカバレッジレポート

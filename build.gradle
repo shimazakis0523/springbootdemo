@@ -10,9 +10,9 @@ group = 'com.shimazaki'
 version = '0.0.1-SNAPSHOT'
 
 java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(17)
-	}
+	// 現在インストールされているJava 24を使用
+	sourceCompatibility = '24'
+	targetCompatibility = '24'
 }
 
 configurations {
