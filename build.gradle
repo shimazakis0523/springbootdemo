@@ -10,9 +10,9 @@ group = 'com.shimazaki'
 version = '0.0.1-SNAPSHOT'
 
 java {
-	// Railwayデプロイ用にJava 21に一時変更
-	sourceCompatibility = '21'
-	targetCompatibility = '21'
+	// 開発環境重視：Java 24を維持
+	sourceCompatibility = '24'
+	targetCompatibility = '24'
 }
 
 configurations {
