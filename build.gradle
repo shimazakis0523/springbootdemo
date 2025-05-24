@@ -10,9 +10,9 @@ group = 'com.shimazaki'
 version = '0.0.1-SNAPSHOT'
 
 java {
-	// 現在インストールされているJava 24を使用
-	sourceCompatibility = '24'
-	targetCompatibility = '24'
+	// Railwayデプロイ用にJava 21に一時変更
+	sourceCompatibility = '21'
+	targetCompatibility = '21'
 }
 
 configurations {
@@ -28,6 +28,7 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0'
 	implementation 'io.swagger.core.v3:swagger-annotations:2.2.19'
 	implementation 'org.openapitools:jackson-databind-nullable:0.2.6'
