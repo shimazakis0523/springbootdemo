@@ -1,0 +1,118 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.5.0'
+	id 'io.spring.dependency-management' version '1.1.7'
+	id 'org.openapi.generator' version '7.13.0'
+	id 'jacoco'
+}
+
+group = 'com.shimazaki'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0'
+	implementation 'io.swagger.core.v3:swagger-annotations:2.2.19'
+	implementation 'org.openapitools:jackson-databind-nullable:0.2.6'
+	implementation 'javax.validation:validation-api:2.0.1.Final'
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+// OpenAPI Generator設定
+openApiGenerate {
+	generatorName = "spring"
+	inputSpec = "$rootDir/src/main/resources/openapi/api.yaml"
+	outputDir = "$buildDir/generated"
+	apiPackage = "com.shimazaki.demo.api"
+	modelPackage = "com.shimazaki.demo.model"
+	configOptions = [
+		dateLibrary: "java8",
+		delegatePattern: "true",
+		interfaceOnly: "true",
+		useTags: "true",
+		useSpringBoot3: "true",
+		useJakartaEe: "true"
+	]
+}
+
+// 生成されたソースをコンパイルパスに追加
+sourceSets {
+	main {
+		java {
+			srcDir "$buildDir/generated/src/main/java"
+		}
+	}
+}
+
+// generateタスクをcompileJavaの前に実行
+tasks.compileJava.dependsOn tasks.openApiGenerate
+
+tasks.named('test') {
+	useJUnitPlatform()
+	
+	// テスト結果を常に表示
+	testLogging {
+		events "passed", "skipped", "failed", "standardOut", "standardError"
+		showStandardStreams = false
+		showExceptions = true
+		exceptionFormat = "full"
+		showCauses = true
+		showStackTraces = true
+	}
+	
+	// テスト完了後にサマリー表示
+	afterSuite { desc, result ->
+		if (!desc.parent) {
+			println "\nTest result: ${result.resultType}"
+			println "Test summary: ${result.testCount} tests, " +
+				"${result.successfulTestCount} passed, " +
+				"${result.failedTestCount} failed, " +
+				"${result.skippedTestCount} skipped"
+		}
+	}
+}
+
+// カスタムタスクの例
+task hello {
+	group = 'custom'
+	description = 'Hello World タスク'
+	doLast {
+		println 'Hello, World!'
+	}
+}
+
+task generateAndTest {
+	group = 'custom' 
+	description = 'OpenAPI生成後にテスト実行'
+	dependsOn openApiGenerate, test
+}
+
+// Jacoco設定
+jacocoTestReport {
+	dependsOn test
+	reports {
+		xml.required = true
+		html.required = true
+	}
+}
