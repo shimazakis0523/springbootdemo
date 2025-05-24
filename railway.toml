@@ -1,7 +1,7 @@
-[build]builder = "dockerfile"
+[build]
+builder = "dockerfile"
 
 [deploy]
-startCommand = "java $JAVA_OPTS -jar app.jar"
 healthcheckPath = "/actuator/health"
 healthcheckTimeout = 300
 restartPolicyType = "on_failure"
