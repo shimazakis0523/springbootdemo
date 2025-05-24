@@ -10,7 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
-import jakarta.validation.Valid;
 
 import java.util.List;
 
@@ -29,7 +28,7 @@ public class TodoController implements TodosApi {
     }
 
     @Override
-    public ResponseEntity<Todo> createTodo(@Valid TodoCreateRequest todoCreateRequest) {
+    public ResponseEntity<Todo> createTodo(TodoCreateRequest todoCreateRequest) {
         log.info("Creating new todo with title: {}", todoCreateRequest.getTitle());
         Todo created = todoService.createTodo(todoCreateRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
@@ -44,7 +43,7 @@ public class TodoController implements TodosApi {
     }
 
     @Override
-    public ResponseEntity<Todo> updateTodo(Long todoId, @Valid TodoUpdateRequest todoUpdateRequest) {
+    public ResponseEntity<Todo> updateTodo(Long todoId, TodoUpdateRequest todoUpdateRequest) {
         log.info("Updating todo with id: {}", todoId);
         return todoService.updateTodo(todoId, todoUpdateRequest)
                 .map(ResponseEntity::ok)
